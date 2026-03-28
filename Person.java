@@ -71,7 +71,17 @@ public class Person {
 
     // --- Private helper ---
     private boolean isValidPhone(String phone) {
-        return phone.length() == 10 && phone.startsWith("05");
+        if (phone.lenght() != 10 || !phone.startsWith("05")){
+            return false;
+        }
+        for ( int i = 2; i < phone.lenght(); i++){
+            char c = phone.charAt(i);
+            if ( c < '0' || c > '9'){
+                return false;
+            }
+        }
+
+        return true;
     }
 
 }
