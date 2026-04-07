@@ -23,9 +23,9 @@ public class Package{
     /** Tracking number validation */
     public Package(Person recipient, int trackNum){
         _recipient = new Person(recipient);
-        if (trackNum >= 10000000 && trackNum <= 99999999) {
-        _trackNum = trackNum; 
-        } 
+        if (isValidTrackNum(trackNum)) {
+            _trackNum = trackNum;
+        }
 
         else {
         _trackNum = DEF_TRACK_NUM; 
@@ -52,7 +52,7 @@ public class Package{
 
     /** Sets the tracking number if it is valid (8 digits) */
     public void setTrackNum(int trackNum) {
-        if (trackNum >= 10000000 && trackNum <= 99999999) {
+        if (isValidTrackNum(trackNum)) {
             _trackNum = trackNum;
         }
     }
@@ -98,6 +98,11 @@ public class Package{
             _recipient.equals(p._recipient);
     }
 
+    /** Checks if this package's recipient name comes before another's alphabetically. */
+    public boolean before(Package p) {
+        return _recipient.before(p.getRecipient());
+    }
+
     /** Checks if this package was handled after the given package */
     public boolean after(Package p) {
         return p.before(this);
@@ -110,5 +115,9 @@ public class Package{
             return true;
         }
         return false;
+    }
+
+    private boolean isValidTrackNum(int n) {
+        return n >= 10000000 && n <= 99999999;
     }
 }
